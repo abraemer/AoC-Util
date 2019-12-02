@@ -2,11 +2,11 @@
 
 (in-package #:aoc-util)
 
-;(defconstant +path+ "D:/Daten/lisp/advent-of-code-2018/inputs/")
-(defparameter +path+ (concatenate "~/Downloads/aoc" (write-to-string (current-year))))
-
 (defun current-year ()
   (nth-value 5 (get-decoded-time)))
+
+;(defconstant +path+ "D:/Daten/lisp/advent-of-code-2018/inputs/")
+(defparameter +path+ (concatenate 'string "~/Downloads/aoc" (write-to-string (current-year))))
 
 (defun download-puzzle-input (day file &optional (year (current-year)))
   (let ((session-file (puzzlepath "session.txt"))
