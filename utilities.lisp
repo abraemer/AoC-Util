@@ -6,7 +6,10 @@
   (nth-value 5 (get-decoded-time)))
 
 ;(defconstant +path+ "D:/Daten/lisp/advent-of-code-2018/inputs/")
-(defparameter +path+ (concatenate 'string "~/Downloads/aoc" (write-to-string (current-year))))
+(defparameter +path+ (concatenate 'string
+				  "~/Downloads/aoc"
+				  (write-to-string (current-year))
+				  "/"))
 
 (defun download-puzzle-input (day file &optional (year (current-year)))
   (let ((session-file (puzzlepath "session.txt"))
@@ -24,7 +27,7 @@
          (drakma:http-request (format nil "https://adventofcode.com/~d/day/~d/input" year day)
                               :cookie-jar cookie-jar))
       (unless (= code 200)
-        (format t "Somnething went wrong! Return status code: ~a (~a)~%" code (first (last stuff)))
+        (format t "Something went wrong! Return status code: ~a (~a)~%" code (first (last stuff)))
         (return-from download-puzzle-input))
       (with-open-file (out file :direction :output :if-does-not-exist :create :if-exists :overwrite)
         (format out "~a" body))
@@ -38,10 +41,10 @@
                                               :if-exists :overwrite)
       (format session-out (read-line)))))
 
-(defun puzzlefile (day)
+(defun puzzlefile (day &optional (year (current-year)))
   (let ((file (puzzlepath (format nil "input~2,'0d.txt" day))))
     (or (and (probe-file file) file)
-        (download-puzzle-input day file)
+        (download-puzzle-input day file year)
         file)))
 
 (defun puzzlepath (file)
