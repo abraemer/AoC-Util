@@ -58,8 +58,8 @@
                while line
                ,@body)))))
 
-(defun read-puzzlefile (file)
-  (loop-line-by-line (puzzlepath file)
+(defun read-puzzlefile (day &optional (year (current-year)))
+  (loop-line-by-line (puzzlefile day year)
     collect line)) 
 
 (defun split-seq (seq denom)
@@ -70,6 +70,19 @@
                (rec (+ 1 index) (cons (subseq seq start index) accum))
                (cons (subseq seq start) accum)))))
     (nreverse (rec 0 nil)))) 
+
+(defun permutations (list)
+  "Returns a list of all permutations of list"
+  (if (null list)
+      (list nil)
+      (loop
+	 :for element :in list
+	 :nconc (mapcar (lambda (subperm) (cons element subperm))
+			(permutations (remove element list))))))
+
+(defun make-circular! (list)
+  "Takes a list and makes it circular"
+  (setf (cdr (last list)) list))
 
 (defun hash-keys (hashtable)
   (loop :for key :being :the :hash-keys :of hashtable
