@@ -7,6 +7,8 @@
 	   :split-seq
 	   :hash-keys
 	   :loop-line-by-line :line
+	   :make-circular!
+	   :permutations
 	   :max-key
 	   :max-vector
 	   :build-set
