@@ -2,7 +2,8 @@
 
 (defpackage #:aoc-util
   (:use #:cl)
-  (:export :read-puzzlefile
+  (:export :*year*
+	   :read-puzzlefile
 	   :puzzlefile
 	   :split-seq
 	   :hash-keys

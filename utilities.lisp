@@ -5,11 +5,10 @@
 (defun current-year ()
   (nth-value 5 (get-decoded-time)))
 
+(defparameter *year* (write-to-string (current-year)))
+
 ;(defconstant +path+ "D:/Daten/lisp/advent-of-code-2018/inputs/")
-(defparameter +path+ (concatenate 'string
-				  "~/Downloads/aoc"
-				  (write-to-string (current-year))
-				  "/"))
+(defparameter +path+ "~/Downloads/aoc")
 
 (defun download-puzzle-input (day file &optional (year (current-year)))
   (let ((session-file (puzzlepath "session.txt"))
@@ -39,7 +38,7 @@
     (with-open-file (session-out session-file :direction :output
                                               :if-does-not-exist :create
                                               :if-exists :overwrite)
-      (format session-out (read-line)))))
+      (format session-out (read-line *standard-input*)))))
 
 (defun puzzlefile (day &optional (year (current-year)))
   (let ((file (puzzlepath (format nil "input~2,'0d.txt" day))))
@@ -48,7 +47,7 @@
         file)))
 
 (defun puzzlepath (file)
-  (concatenate 'string +path+ file))
+  (concatenate 'string +path+ *year* "/" file))
 
 (defmacro loop-line-by-line (file &body body)
   (let ((in (gensym)))
