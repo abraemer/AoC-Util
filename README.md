@@ -1,9 +1,8 @@
 # aoc-util
-### _NobodysHero_
 
-This is a project to do ... something.
+Some helper methods for me to solve Advent of Code problems. Provides automatic downloads of puzzle files and some small functions that I've used often.
 
 ## License
 
-Specify license here
+MIT
 
