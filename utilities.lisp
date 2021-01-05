@@ -10,7 +10,7 @@
 ;(defconstant +path+ "D:/Daten/lisp/advent-of-code-2018/inputs/")
 (defparameter +path+ "~/Downloads/aoc")
 
-(defun download-puzzle-input (day file &optional (year (current-year)))
+(defun download-puzzle-input (day file &optional (year *year*))
   (let ((session-file (puzzlepath "session.txt"))
         (cookie-jar (make-instance 'drakma:cookie-jar)))
     (unless (probe-file session-file)
@@ -41,14 +41,14 @@
                                               :if-exists :overwrite)
       (format session-out (read-line *standard-input*)))))
 
-(defun puzzlefile (day &optional (year (current-year)))
-  (let ((file (puzzlepath (format nil "input~2,'0d.txt" day))))
+(defun puzzlefile (day &optional (year *year*))
+  (let ((file (puzzlepath (format nil "input~2,'0d.txt" day year))))
     (or (and (probe-file file) file)
         (download-puzzle-input day file year)
         file)))
 
-(defun puzzlepath (file)
-  (concatenate 'string +path+ *year* "/" file))
+(defun puzzlepath (file &optional (year *year*))
+  (concatenate 'string +path+ year "/" file))
 
 (defmacro loop-line-by-line (file &body body)
   (let ((in (gensym)))
@@ -58,7 +58,7 @@
                while line
                ,@body)))))
 
-(defun read-puzzlefile (day &optional (year (current-year)))
+(defun read-puzzlefile (day &optional (year *year*))
   (loop-line-by-line (puzzlefile day year)
     collect line)) 
 
