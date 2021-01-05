@@ -35,6 +35,7 @@
 (defun update-session ()
   (let ((session-file (puzzlepath "session.txt")))
     (format t "Session id for the cookie please:~%")
+    (ensure-directories-exist session-file)
     (with-open-file (session-out session-file :direction :output
                                               :if-does-not-exist :create
                                               :if-exists :overwrite)
