@@ -42,7 +42,7 @@
       (format session-out (read-line *standard-input*)))))
 
 (defun puzzlefile (day &optional (year *year*))
-  (let ((file (puzzlepath (format nil "input~2,'0d.txt" day year))))
+  (let ((file (puzzlepath (format nil "input~2,'0d.txt" day) year)))
     (or (and (probe-file file) file)
         (download-puzzle-input day file year)
         file)))
